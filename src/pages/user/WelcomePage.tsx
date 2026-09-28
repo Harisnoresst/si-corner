@@ -49,8 +49,8 @@ export default function WelcomePage() {
     <>
       <style>{`
         @keyframes marquee-slow {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
         }
         .animate-marquee-slow {
           animation: marquee-slow 35s linear infinite;
@@ -202,19 +202,32 @@ export default function WelcomePage() {
         </div>
       </section>
 
-      {/* INSTITUSI */}
+      {/* INSTITUSI / SUMBER KOLEKSI (MARQUEE SEAMLESS LOOPING) */}
       <section id="institusi" className="pt-12 md:pt-16 scroll-mt-[70px]">
         <div className="mb-6 px-5 md:px-[4.8vw]">
           <h2 className="pl-3 border-l-4 border-[#9b0000] text-[#9b0000] text-2xl md:text-[28px] font-bold leading-tight">Sumber Koleksi</h2>
           <p className="mt-2 ml-4 text-[#6b6663] text-[13px] md:text-[14px]">Koleksi terkurasi dari berbagai perpustakaan perguruan tinggi</p>
         </div>
+        
         <div className="marquee-track relative w-full overflow-hidden py-4 [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <div className="flex w-max items-center gap-12 md:gap-20 animate-marquee-slow">
-            {[...partners, ...partners].map((partner, idx) => (
-              <a key={`${partner.id}-${idx}`} href={partner.link} target="_blank" rel="noreferrer" className="shrink-0 flex items-center justify-center h-[48px] md:h-[64px]" title={partner.name}>
-                <img src={partner.logo} alt={partner.name} className="h-full w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
-              </a>
-            ))}
+          <div className="flex w-max animate-marquee-slow">
+            {/* TRACK 1 */}
+            <div className="flex shrink-0 items-center gap-12 md:gap-20 pr-12 md:pr-20">
+              {[...partners, ...partners].map((partner, idx) => (
+                <a key={`t1-${partner.id}-${idx}`} href={partner.link} target="_blank" rel="noreferrer" className="shrink-0 flex items-center justify-center h-[48px] md:h-[64px]" title={partner.name}>
+                  <img src={partner.logo} alt={partner.name} className="h-full w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+              ))}
+            </div>
+
+            {/* TRACK 2 (DUPLIKAT IDENTIK UNTUK INFINITE LOOP TANPA JEDA) */}
+            <div className="flex shrink-0 items-center gap-12 md:gap-20 pr-12 md:pr-20" aria-hidden="true">
+              {[...partners, ...partners].map((partner, idx) => (
+                <a key={`t2-${partner.id}-${idx}`} href={partner.link} target="_blank" rel="noreferrer" className="shrink-0 flex items-center justify-center h-[48px] md:h-[64px]" title={partner.name}>
+                  <img src={partner.logo} alt={partner.name} className="h-full w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </section>
